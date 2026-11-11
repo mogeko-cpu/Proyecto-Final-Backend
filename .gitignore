@@ -50,3 +50,6 @@ docker-data/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Carpetas de trabajo locales (reparto de archivos, no se suben)
+_reparto/
