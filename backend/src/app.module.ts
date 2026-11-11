@@ -25,6 +25,7 @@ import { HealthController } from './presentation/controllers/health.controller';
 })
 export class AppModule implements OnModuleInit {
   constructor(@Inject(REPOSITORY) private repo: Repository) {}
+
   /** Datos ficticios de demostración (SEED_DEMO=true). */
   async onModuleInit() {
     if (process.env.SEED_DEMO === 'true') await seed(this.repo);

@@ -6,7 +6,7 @@ export function assertTaskTransition(
   to: Task['status'],
   resolution: string,
 ): void {
-  const allowed = { PENDING: ['IN_PROGRESS', 'DONE'], IN_PROGRESS: ['DONE'], DONE: [] };
+  const allowed = { PENDING: ['IN_PROGRESS'], IN_PROGRESS: ['DONE'], DONE: [] };
   if (!(allowed[from] as string[]).includes(to))
     throw new BusinessError(409, 'Transición de tarea no permitida');
   if (to === 'DONE' && resolution.trim().length < 10)

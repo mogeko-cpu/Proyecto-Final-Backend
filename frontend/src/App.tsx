@@ -25,6 +25,7 @@ export function App() {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
+
         <Route element={<Layout />}>
           <Route
             index
@@ -34,6 +35,7 @@ export function App() {
               </StaffOnly>
             }
           />
+
           <Route
             path="records"
             element={
@@ -42,6 +44,7 @@ export function App() {
               </StaffOnly>
             }
           />
+
           <Route
             path="records/:id"
             element={
@@ -50,6 +53,7 @@ export function App() {
               </StaffOnly>
             }
           />
+
           <Route
             path="alerts"
             element={
@@ -58,6 +62,7 @@ export function App() {
               </StaffOnly>
             }
           />
+
           <Route
             path="environment"
             element={
@@ -66,6 +71,7 @@ export function App() {
               </StaffOnly>
             }
           />
+
           <Route
             path="tasks"
             element={
@@ -74,6 +80,7 @@ export function App() {
               </StaffOnly>
             }
           />
+
           <Route
             path="deposits"
             element={
@@ -82,6 +89,7 @@ export function App() {
               </StaffOnly>
             }
           />
+
           <Route
             path="users"
             element={
@@ -90,7 +98,9 @@ export function App() {
               </StaffOnly>
             }
           />
+
           <Route path="account" element={<AccountPage />} />
+
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
