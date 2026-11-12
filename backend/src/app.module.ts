@@ -5,6 +5,7 @@ import { Repository } from './domain/ports';
 import { seed } from './infrastructure/seed';
 import { AuthModule } from './modules/auth.module';
 import { CoreModule } from './modules/core.module';
+import { InterventionsModule } from './modules/interventions.module';
 import { InventoryModule } from './modules/inventory.module';
 import { MonitoringModule } from './modules/monitoring.module';
 import { REPOSITORY } from './modules/tokens';
@@ -17,6 +18,7 @@ import { HealthController } from './presentation/controllers/health.controller';
     AuthModule,
     InventoryModule,
     MonitoringModule,
+    InterventionsModule,
   ],
   controllers: [HealthController],
   providers: [{ provide: APP_GUARD, useClass: ThrottlerGuard }],

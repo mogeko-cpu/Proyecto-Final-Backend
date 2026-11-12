@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import { RefreshCw } from 'lucide-react';
+import { ArrowRight, RefreshCw } from 'lucide-react';
 import { api, Alert, Page } from '../api';
-import { useData, ErrorNotice, Head, Empty, Pager, useMutation } from '../ui';
+import { useData, ErrorNotice, Head, Empty, Pager, FormPanel, useMutation } from '../ui';
 import { AlertCard } from './AlertCard';
+import { TaskForm } from './TaskForm';
 
 export function AlertsPage() {
   const [page, setPage] = useState(1),
-    [status, setStatus] = useState('OPEN');
+    [status, setStatus] = useState('OPEN'),
+    [assign, setAssign] = useState<string | null>(null);
   const result = useData<Page<Alert>>(
     `/alerts?page=${page}&limit=10&sort=priority&order=ASC&status=${status}`,
   );
@@ -30,6 +32,17 @@ export function AlertsPage() {
         }
       />
       <ErrorNotice message={error} />
+      {assign && (
+        <FormPanel title="Asignar intervención" onClose={() => setAssign(null)}>
+          <TaskForm
+            alertId={assign}
+            onSaved={() => {
+              setAssign(null);
+              result.reload();
+            }}
+          />
+        </FormPanel>
+      )}
       <section className="panel">
         <div className="filters">
           <label>
@@ -50,7 +63,13 @@ export function AlertsPage() {
         </div>
         <ErrorNotice message={result.error} />
         {result.data?.items.map((a) => (
-          <AlertCard key={a.id} alert={a} />
+          <AlertCard key={a.id} alert={a}>
+            {a.status === 'OPEN' && (
+              <button className="text-button" onClick={() => setAssign(a.id)}>
+                Asignar intervención <ArrowRight size={14} />
+              </button>
+            )}
+          </AlertCard>
         ))}
         {result.data?.total === 0 && <Empty text="No hay alertas en este estado." />}
         <Pager page={page} total={result.data?.total ?? 0} onPage={setPage} />
