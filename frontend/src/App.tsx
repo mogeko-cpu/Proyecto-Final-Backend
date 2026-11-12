@@ -3,7 +3,9 @@ import { Layout } from './Layout';
 import { ScrollToTop } from './ScrollToTop';
 import { StaffOnly } from './session';
 import { AccountPage } from './pages/AccountPage';
+import { AlertsPage } from './pages/AlertsPage';
 import { DepositsPage } from './pages/DepositsPage';
+import { EnvironmentPage } from './pages/EnvironmentPage';
 import { LoginPage } from './pages/LoginPage';
 import { PrivacyPage } from './pages/PrivacyPage';
 import { RecordDetail } from './pages/RecordDetail';
@@ -36,6 +38,22 @@ export function App() {
             element={
               <StaffOnly>
                 <RecordDetail />
+              </StaffOnly>
+            }
+          />
+          <Route
+            path="alerts"
+            element={
+              <StaffOnly>
+                <AlertsPage />
+              </StaffOnly>
+            }
+          />
+          <Route
+            path="environment"
+            element={
+              <StaffOnly>
+                <EnvironmentPage />
               </StaffOnly>
             }
           />
