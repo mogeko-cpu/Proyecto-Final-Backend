@@ -1,0 +1,78 @@
+<mxfile host="65bd71144e">
+    <diagram name="Modelo de Datos" id="modelo-datos">
+        <mxGraphModel dx="1091" dy="1334" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1200" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="users" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;align=left;spacingLeft=8;spacingTop=6;" value="&lt;b&gt;USERS&lt;/b&gt;&lt;br&gt;PK id : UUID&lt;br&gt;createdAt : TIMESTAMPTZ&lt;br&gt;name : VARCHAR(100)&lt;br&gt;email : VARCHAR(254) UNIQUE&lt;br&gt;passwordHash : VARCHAR&lt;br&gt;role : VARCHAR&lt;br&gt;consentAt : TIMESTAMPTZ&lt;br&gt;active : BOOLEAN" vertex="1">
+                    <mxGeometry height="220" width="280" x="30" y="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="sessions" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;align=left;spacingLeft=8;spacingTop=6;" value="&lt;b&gt;SESSIONS&lt;/b&gt;&lt;br&gt;PK id : UUID&lt;br&gt;createdAt : TIMESTAMPTZ&lt;br&gt;FK userId : UUID&lt;br&gt;tokenHash : VARCHAR&lt;br&gt;expiresAt : TIMESTAMPTZ" vertex="1">
+                    <mxGeometry height="160" width="260" x="420" y="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="tasks" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;align=left;spacingLeft=8;spacingTop=6;" value="&lt;b&gt;TASKS&lt;/b&gt;&lt;br&gt;PK id : UUID&lt;br&gt;createdAt : TIMESTAMPTZ&lt;br&gt;FK alertId : UUID&lt;br&gt;FK assigneeId : UUID&lt;br&gt;title : VARCHAR(200)&lt;br&gt;dueAt : TIMESTAMPTZ&lt;br&gt;status : VARCHAR&lt;br&gt;resolution : TEXT&lt;br&gt;completedAt : TIMESTAMPTZ NULL" vertex="1">
+                    <mxGeometry height="220" width="290" x="810" y="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="deposits" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;align=left;spacingLeft=8;spacingTop=6;" value="&lt;b&gt;DEPOSITS&lt;/b&gt;&lt;br&gt;PK id : UUID&lt;br&gt;createdAt : TIMESTAMPTZ&lt;br&gt;name : VARCHAR(100) UNIQUE&lt;br&gt;tempMin : DOUBLE PRECISION&lt;br&gt;tempMax : DOUBLE PRECISION&lt;br&gt;humidityMin : DOUBLE PRECISION&lt;br&gt;humidityMax : DOUBLE PRECISION" vertex="1">
+                    <mxGeometry height="200" width="290" x="50" y="360" as="geometry"/>
+                </mxCell>
+                <mxCell id="records" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;align=left;spacingLeft=8;spacingTop=6;" value="&lt;b&gt;RECORDS&lt;/b&gt;&lt;br&gt;PK id : UUID&lt;br&gt;createdAt : TIMESTAMPTZ&lt;br&gt;code : VARCHAR(40) UNIQUE&lt;br&gt;title : VARCHAR(200)&lt;br&gt;FK depositId : UUID&lt;br&gt;shelf : VARCHAR(50)&lt;br&gt;box : VARCHAR(50)&lt;br&gt;description : TEXT&lt;br&gt;inspectionDays : INTEGER&lt;br&gt;nextInspectionAt : TIMESTAMPTZ&lt;br&gt;condition : VARCHAR&lt;br&gt;archived : BOOLEAN" vertex="1">
+                    <mxGeometry height="280" width="300" x="420" y="330" as="geometry"/>
+                </mxCell>
+                <mxCell id="inspections" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;align=left;spacingLeft=8;spacingTop=6;" value="&lt;b&gt;INSPECTIONS&lt;/b&gt;&lt;br&gt;PK id : UUID&lt;br&gt;createdAt : TIMESTAMPTZ&lt;br&gt;FK recordId : UUID&lt;br&gt;FK inspectorId : UUID&lt;br&gt;condition : VARCHAR&lt;br&gt;notes : TEXT&lt;br&gt;pests : BOOLEAN&lt;br&gt;wear : BOOLEAN&lt;br&gt;moisture : BOOLEAN" vertex="1">
+                    <mxGeometry height="220" width="290" x="800" y="330" as="geometry"/>
+                </mxCell>
+                <mxCell id="readings" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;align=left;spacingLeft=8;spacingTop=6;" value="&lt;b&gt;READINGS&lt;/b&gt;&lt;br&gt;PK id : UUID&lt;br&gt;createdAt : TIMESTAMPTZ&lt;br&gt;FK depositId : UUID&lt;br&gt;sensorId : VARCHAR(80)&lt;br&gt;temperature : DOUBLE PRECISION&lt;br&gt;humidity : DOUBLE PRECISION&lt;br&gt;measuredAt : TIMESTAMPTZ" vertex="1">
+                    <mxGeometry height="180" width="290" x="50" y="700" as="geometry"/>
+                </mxCell>
+                <mxCell id="alerts" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;align=left;spacingLeft=8;spacingTop=6;" value="&lt;b&gt;ALERTS&lt;/b&gt;&lt;br&gt;PK id : UUID&lt;br&gt;createdAt : TIMESTAMPTZ&lt;br&gt;kind : VARCHAR&lt;br&gt;priority : INTEGER&lt;br&gt;FK recordId : UUID NULL&lt;br&gt;FK depositId : UUID&lt;br&gt;message : TEXT&lt;br&gt;status : VARCHAR&lt;br&gt;resolvedAt : TIMESTAMPTZ NULL&lt;br&gt;key : VARCHAR" vertex="1">
+                    <mxGeometry height="240" width="300" x="420" y="680" as="geometry"/>
+                </mxCell>
+                <mxCell id="e1" edge="1" parent="1" source="users" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="sessions" value="1 : N">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e2" edge="1" parent="1" source="users" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="inspections" value="1 : N">
+                    <mxGeometry relative="1" x="0.0012" as="geometry"/>
+                </mxCell>
+                <mxCell id="e3" edge="1" parent="1" source="users" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;exitX=1;exitY=0.25;entryX=0;entryY=0.5;" target="tasks" value="1 : N">
+                    <mxGeometry relative="1" x="-0.2613" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="330" y="260"/>
+                            <mxPoint x="555" y="260"/>
+                            <mxPoint x="555" y="250"/>
+                            <mxPoint x="780" y="250"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e4" edge="1" parent="1" source="deposits" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="records" value="1 : N">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e5" edge="1" parent="1" source="deposits" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="readings" value="1 : N">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e6" edge="1" parent="1" source="deposits" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;exitX=1;exitY=0.75;entryX=0;entryY=0.25;" target="alerts" value="1 : N">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="370" y="530"/>
+                            <mxPoint x="370" y="740"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e7" edge="1" parent="1" source="records" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="inspections" value="1 : N">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e8" edge="1" parent="1" source="records" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" target="alerts" value="1 : N">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e9" edge="1" parent="1" source="alerts" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=ERmany;startArrow=ERone;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" target="tasks" value="1 : N">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="760" y="800"/>
+                            <mxPoint x="760" y="850"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
