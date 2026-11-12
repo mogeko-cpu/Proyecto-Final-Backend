@@ -39,6 +39,19 @@ npm run test:e2e   # pruebas e2e contra PostgreSQL (DATABASE_URL debe contener "
 npm run build
 ```
 
+## Simulador de sensores
+
+Envía lecturas de temperatura y humedad a la API real, como lo haría un sensor (HU11). Con Docker en marcha y los datos de demostración cargados:
+
+```powershell
+$env:SENSOR_PASSWORD = (docker compose exec -T backend cat /run/config/demo_password).Trim()
+npm run simulate
+```
+
+Variables opcionales: `SENSOR_COUNT` (lecturas, 1–10000), `SENSOR_INTERVAL_MS` (mínimo 1000), `SENSOR_DEPOSIT_ID`, `API_URL`. Algunas lecturas salen deliberadamente del rango para mostrar cómo se abre y se resuelve la alerta ambiental.
+
+Cuentas de demostración (datos ficticios): `admin@clena.example`, `personal@clena.example` y `publico@clena.example`; la contraseña se lee con `docker compose exec backend cat /run/config/demo_password`.
+
 ## Estructura (arquitectura limpia)
 
 ```
