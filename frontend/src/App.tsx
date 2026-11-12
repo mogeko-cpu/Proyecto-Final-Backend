@@ -4,12 +4,14 @@ import { ScrollToTop } from './ScrollToTop';
 import { StaffOnly } from './session';
 import { AccountPage } from './pages/AccountPage';
 import { AlertsPage } from './pages/AlertsPage';
+import { DashboardPage } from './pages/DashboardPage';
 import { DepositsPage } from './pages/DepositsPage';
 import { EnvironmentPage } from './pages/EnvironmentPage';
 import { LoginPage } from './pages/LoginPage';
 import { PrivacyPage } from './pages/PrivacyPage';
 import { RecordDetail } from './pages/RecordDetail';
 import { RecordsPage } from './pages/RecordsPage';
+import { TasksPage } from './pages/TasksPage';
 import { UsersPage } from './pages/UsersPage';
 
 /** Rutas de la aplicación. Cada módulo agrega aquí sus páginas. */
@@ -24,7 +26,14 @@ export function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route element={<Layout />}>
-          <Route index element={<Navigate to="/records" replace />} />
+          <Route
+            index
+            element={
+              <StaffOnly>
+                <DashboardPage />
+              </StaffOnly>
+            }
+          />
           <Route
             path="records"
             element={
@@ -54,6 +63,14 @@ export function App() {
             element={
               <StaffOnly>
                 <EnvironmentPage />
+              </StaffOnly>
+            }
+          />
+          <Route
+            path="tasks"
+            element={
+              <StaffOnly>
+                <TasksPage />
               </StaffOnly>
             }
           />
