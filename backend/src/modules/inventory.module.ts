@@ -4,6 +4,7 @@ import {
   CreateDeposit,
   CreateRecord,
   GetRecord,
+  RegisterInspection,
   UpdateDeposit,
   UpdateRecord,
 } from '../application/inventory';
@@ -20,6 +21,7 @@ import { useCase } from './use-case';
     useCase(UpdateRecord, REPOSITORY, RUNTIME),
     useCase(ArchiveRecord, REPOSITORY, RUNTIME),
     useCase(GetRecord, REPOSITORY),
+    useCase(RegisterInspection, REPOSITORY, RUNTIME),
   ],
 })
 export class InventoryModule {}

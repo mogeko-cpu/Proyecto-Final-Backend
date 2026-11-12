@@ -23,3 +23,36 @@ export class RecordDto {
   description!: string;
   @ApiProperty({ example: 30 }) @IsInt() @Min(1) @Max(365) inspectionDays!: number;
 }
+
+export class InspectionDto {
+  @ApiProperty({ format: 'uuid' })
+  @IsUUID()
+  recordId!: string;
+
+  @ApiProperty({ format: 'uuid' })
+  @IsUUID()
+  inspectorId!: string;
+
+  @ApiProperty({
+    enum: ['OPTIMO', 'REGULAR', 'CRITICO'],
+    example: 'REGULAR',
+  })
+  @IsString()
+  condition!: 'OPTIMO' | 'REGULAR' | 'CRITICO';
+
+  @ApiProperty({
+    example: 'Se encontró el expediente en buen estado.',
+  })
+  @IsString()
+  @MaxLength(2000)
+  notes!: string;
+
+  @ApiProperty({ example: false })
+  pests!: boolean;
+
+  @ApiProperty({ example: false })
+  wear!: boolean;
+
+  @ApiProperty({ example: false })
+  moisture!: boolean;
+}
