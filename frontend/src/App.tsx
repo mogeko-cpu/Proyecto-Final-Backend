@@ -3,8 +3,11 @@ import { Layout } from './Layout';
 import { ScrollToTop } from './ScrollToTop';
 import { StaffOnly } from './session';
 import { AccountPage } from './pages/AccountPage';
+import { DepositsPage } from './pages/DepositsPage';
 import { LoginPage } from './pages/LoginPage';
 import { PrivacyPage } from './pages/PrivacyPage';
+import { RecordDetail } from './pages/RecordDetail';
+import { RecordsPage } from './pages/RecordsPage';
 import { UsersPage } from './pages/UsersPage';
 
 /** Rutas de la aplicación. Cada módulo agrega aquí sus páginas. */
@@ -19,7 +22,31 @@ export function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
         <Route element={<Layout />}>
-          <Route index element={<Navigate to="/account" replace />} />
+          <Route index element={<Navigate to="/records" replace />} />
+          <Route
+            path="records"
+            element={
+              <StaffOnly>
+                <RecordsPage />
+              </StaffOnly>
+            }
+          />
+          <Route
+            path="records/:id"
+            element={
+              <StaffOnly>
+                <RecordDetail />
+              </StaffOnly>
+            }
+          />
+          <Route
+            path="deposits"
+            element={
+              <StaffOnly admin>
+                <DepositsPage />
+              </StaffOnly>
+            }
+          />
           <Route
             path="users"
             element={
