@@ -37,43 +37,78 @@ export class InventoryController {
     private archiveRecord: ArchiveRecord,
     private getRecord: GetRecord,
   ) {}
+
   @Get('deposits')
   @ApiOperation({ summary: 'Listar depósitos y umbrales (paginado)' })
   deposits(@Query() q: ListDto) {
     return this.list.execute('deposits', q);
   }
+
   @Roles('ADMIN')
   @Post('deposits')
   @ApiOperation({ summary: 'Crear depósito y umbrales; solo administrador' })
   newDeposit(@Body() dto: DepositDto) {
     return this.createDeposit.execute(dto);
   }
+
   @Roles('ADMIN')
   @Put('deposits/:id')
-  @ApiOperation({ summary: 'Actualizar depósito; los umbrales aplican a la próxima lectura' })
-  editDeposit(@Param('id', ParseUUIDPipe) id: string, @Body() dto: DepositDto) {
+  @ApiOperation({
+    summary: 'Actualizar depósito; los umbrales aplican a la próxima lectura',
+  })
+  editDeposit(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() dto: DepositDto,
+  ) {
     return this.updateDeposit.execute(id, dto);
   }
+
   @Get('records')
-  @ApiOperation({ summary: 'Inventario; buscar código/título, filtrar estado/depósito/archivado' })
+  @ApiOperation({
+    summary:
+      'Inventario; buscar código/título, filtrar estado/depósito/archivado',
+  })
   records(@Query() q: ListDto) {
     return this.list.execute('records', q);
   }
+
   @Get('records/:id')
   @ApiOperation({ summary: 'Detalle de expediente' })
   record(@Param('id', ParseUUIDPipe) id: string) {
     return this.getRecord.execute(id);
   }
+
   @Post('records')
-  @ApiOperation({ summary: 'Crear expediente; primera inspección pendiente de inmediato' })
+  @ApiOperation({
+    summary: 'Crear expediente; primera inspección pendiente de inmediato',
+  })
   newRecord(@Body() dto: RecordDto) {
     return this.createRecord.execute(dto);
   }
+
   @Put('records/:id')
   @ApiOperation({ summary: 'Editar ubicación, metadatos y periodicidad' })
-  editRecord(@Param('id', ParseUUIDPipe) id: string, @Body() dto: RecordDto) {
+  editRecord(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() dto: RecordDto,
+  ) {
     return this.updateRecord.execute(id, dto);
   }
+
+  @Get('records/:id/inspections')
+  @ApiOperation({
+    summary: 'Consultar historial de inspecciones de un expediente',
+  })
+  inspections(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Query() q: ListDto,
+  ) {
+    return this.list.execute('inspections', {
+      ...q,
+      recordId: id,
+    });
+  }
+
   @Roles('ADMIN')
   @Delete('records/:id')
   @ApiOperation({ summary: 'Archivar expediente sin borrar historial' })
