@@ -8,15 +8,17 @@ import { assertTaskTransition } from '../src/domain/rules/tasks';
 import { FakeSecurity, MemoryRepository, TestRuntime } from './memory';
 
 describe('Intervenciones: reglas de dominio', () => {
-  it('solo permite avanzar tareas y exige resultado al completar (HU14)', () => {
+  it('avanza paso a paso, sin saltos ni retrocesos, y exige resultado al completar (HU14)', () => {
     expect(() => assertTaskTransition('PENDING', 'IN_PROGRESS', '')).not.toThrow();
-    expect(() => assertTaskTransition('PENDING', 'DONE', 'Intervención terminada')).not.toThrow();
+    expect(() => assertTaskTransition('PENDING', 'DONE', 'Intervención terminada')).toThrow(
+      'Transición',
+    );
     expect(() =>
       assertTaskTransition('IN_PROGRESS', 'DONE', 'Intervención terminada'),
     ).not.toThrow();
     expect(() => assertTaskTransition('IN_PROGRESS', 'PENDING', '')).toThrow('Transición');
     expect(() => assertTaskTransition('DONE', 'IN_PROGRESS', '')).toThrow('Transición');
-    expect(() => assertTaskTransition('PENDING', 'DONE', 'breve')).toThrow('mínimo');
+    expect(() => assertTaskTransition('IN_PROGRESS', 'DONE', 'breve')).toThrow('mínimo');
   });
 });
 

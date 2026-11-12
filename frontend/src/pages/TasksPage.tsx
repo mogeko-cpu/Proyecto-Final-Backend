@@ -50,8 +50,11 @@ export function TasksPage() {
           >
             <Field label="Nuevo estado">
               <select name="status">
-                {editing.status === 'PENDING' && <option value="IN_PROGRESS">En curso</option>}
-                <option value="DONE">Completada</option>
+                {editing.status === 'PENDING' ? (
+                  <option value="IN_PROGRESS">En curso</option>
+                ) : (
+                  <option value="DONE">Completada</option>
+                )}
               </select>
             </Field>
             <Field label="Resultado de la intervención (obligatorio al completar)">

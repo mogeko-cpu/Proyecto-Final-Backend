@@ -57,7 +57,7 @@ describe('Intervenciones y dashboard (e2e)', () => {
     if (app) await app.close();
   });
 
-  it('asigna una intervención sin duplicados y exige evidencia al completarla', async () => {
+  it('asigna una intervención sin duplicados, avanza paso a paso y exige evidencia', async () => {
     const payload = {
       alertId,
       assigneeId: u.staffId,
@@ -77,13 +77,18 @@ describe('Intervenciones y dashboard (e2e)', () => {
     await request(app.getHttpServer())
       .patch(`/api/v1/tasks/${task.body.id}`)
       .auth(u.staff, { type: 'bearer' })
-      .send({ status: 'DONE', resolution: '' })
-      .expect(400);
+      .send({ status: 'DONE', resolution: 'Se documentó y completó la intervención' })
+      .expect(409);
     await request(app.getHttpServer())
       .patch(`/api/v1/tasks/${task.body.id}`)
       .auth(u.staff, { type: 'bearer' })
       .send({ status: 'IN_PROGRESS', resolution: '' })
       .expect(200);
+    await request(app.getHttpServer())
+      .patch(`/api/v1/tasks/${task.body.id}`)
+      .auth(u.staff, { type: 'bearer' })
+      .send({ status: 'DONE', resolution: '' })
+      .expect(400);
     await request(app.getHttpServer())
       .patch(`/api/v1/tasks/${task.body.id}`)
       .auth(u.staff, { type: 'bearer' })
