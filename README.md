@@ -30,6 +30,22 @@ El servicio `init` genera los secretos (contraseña de la base de datos y claves
 3. `npm run dev:api` (compila y arranca la API en el puerto 3000; las migraciones se aplican al iniciar).
 4. `npm run dev:web` (Vite en http://localhost:5173, envía `/api` al backend).
 
+### Respaldo y restauración de la base de datos
+
+Con los servicios en marcha, en la carpeta del repositorio (funciona igual en PowerShell y en bash):
+
+```bash
+# Respaldo: deja respaldo.dump en la carpeta actual
+docker compose exec db pg_dump -U clena -d clena -Fc -f /tmp/respaldo.dump
+docker compose cp db:/tmp/respaldo.dump ./respaldo.dump
+
+# Restauración: reemplaza el contenido actual por el del respaldo
+docker compose cp ./respaldo.dump db:/tmp/respaldo.dump
+docker compose exec db pg_restore -U clena -d clena --clean --if-exists /tmp/respaldo.dump
+```
+
+Los secretos (contraseña de la base y claves JWT) viven en el volumen `config` y no forman parte del respaldo. En otra máquina, `docker compose up` genera secretos nuevos y luego se restaura el respaldo. Para borrar todo y empezar desde cero con los datos de demostración: `docker compose down -v`.
+
 ## Pruebas
 
 ```bash
