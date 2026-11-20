@@ -184,6 +184,7 @@ p {
 }
 .brand {
   display: flex;
+  flex-wrap: wrap;
   gap: 11px;
   align-items: center;
   font-family: 'Manrope', sans-serif;
@@ -191,6 +192,29 @@ p {
   font-size: 1.65rem;
   letter-spacing: -1px;
   color: var(--dark);
+}
+.brand-seal {
+  flex-basis: 100%;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 4px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  color: var(--muted);
+}
+.brand-seal img {
+  height: 31px;
+  width: auto;
+  padding: 3px 4px;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 0 0 1px var(--border);
+}
+.login-story .brand-seal {
+  color: #d9dccd;
 }
 .brand-icon {
   background: var(--green);
