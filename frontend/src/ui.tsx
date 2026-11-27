@@ -170,6 +170,10 @@ export function Brand() {
       <div>
         conserva<span>ARCHIVO HISTÓRICO · CLENA</span>
       </div>
+      <div className="brand-seal">
+        <img src="/uninorte.png" alt="Sello de la Universidad del Norte" width={28} height={31} />
+        <small>Universidad del Norte</small>
+      </div>
     </div>
   );
 }
