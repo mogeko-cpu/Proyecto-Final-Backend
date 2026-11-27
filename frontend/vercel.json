@@ -1,0 +1,15 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://proyecto-final-backend-cyan.vercel.app/api/:path*"
+    },
+    { "source": "/docs", "destination": "https://proyecto-final-backend-cyan.vercel.app/docs" },
+    {
+      "source": "/docs/:path*",
+      "destination": "https://proyecto-final-backend-cyan.vercel.app/docs/:path*"
+    },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
